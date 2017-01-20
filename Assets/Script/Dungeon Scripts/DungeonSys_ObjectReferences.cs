@@ -16,6 +16,8 @@ public class DungeonSys_ObjectReferences : MonoBehaviour
 	[SerializeField]
 	DungeonSys_TurnActions sys_turnActions;
 	[SerializeField]
+	DungeonSys_Interface sys_interface;
+	[SerializeField]
 	MainChar_Dungeon mainCharacter;
 
 
@@ -38,6 +40,12 @@ public class DungeonSys_ObjectReferences : MonoBehaviour
 		}
 		if(this.mapManager == null)
 			this.mapManager = GameObject.FindGameObjectWithTag("MapManager").GetComponent<Managers_Map>();
+		this.mapManager.Sys_ObjectRef = this.GetComponent<DungeonSys_ObjectReferences>();
+	}
+
+	void Start()
+	{
+		this.mapManager.ReloadBattles();
 	}
 
 	#region GETS & SETS
@@ -58,6 +66,12 @@ public class DungeonSys_ObjectReferences : MonoBehaviour
 	{
 		get{return this.encounterManager;}
 		set{this.encounterManager = value;}
+	}
+
+	public DungeonSys_Interface Sys_interface
+	{
+		get{return this.sys_interface;}
+		set{this.sys_interface = value;}
 	}
 
 	public Managers_Map MapManager

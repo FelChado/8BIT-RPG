@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{0BE8E511-D506-A1D0-E67D-923A5ED26D39}</ProjectGuid>
+    <ProjectGuid>{96F496C4-0625-F999-9BD1-6AE480895470}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -72,7 +72,6 @@
      <Compile Include="Assets\Script\Dungeon Scripts\DungeonSys_TurnActions.cs" />
      <Compile Include="Assets\Script\Dungeon Scripts\MainChar_Dungeon.cs" />
      <Compile Include="Assets\Script\Dungeon Scripts\Managers_EncounterManager.cs" />
-     <Compile Include="Assets\Script\Dungeon Scripts\Tile_Battle.cs" />
      <Compile Include="Assets\Script\Dungeon Scripts\Tile_Global.cs" />
      <Compile Include="Assets\Script\Save\AddToSave.cs" />
      <Compile Include="Assets\Script\Save\NewGame.cs" />

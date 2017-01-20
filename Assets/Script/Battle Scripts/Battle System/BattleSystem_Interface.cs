@@ -158,6 +158,7 @@ public class BattleSystem_Interface : MonoBehaviour
 					this.currTargetParty = "Enemy";
 					break;
 			}
+			this.cursor = 0;
 			this.menuState = 1;
 			this.hud_weaknessView.SetNewTarget();
 			this.hud_weaknessView.Activate(true);

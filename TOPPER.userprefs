@@ -1,0 +1,14 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Battle System\BattleSystem_Interface.cs">
+    <Files>
+      <File FileName="Assets\Script\Battle System\BattleSystem_Interface.cs" Line="125" Column="117" />
+      <File FileName="Assets\Script\Interface\BattleInterface_SkillMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Battle System\BattleSystem_References.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

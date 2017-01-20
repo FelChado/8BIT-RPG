@@ -11,7 +11,7 @@ public class Managers_Monsters : MonoBehaviour
 
 	public void CreateMonsterDatabase()
 	{
-		AddMonster("Goblin", 3, 20, 5, 1, 3, 2, 3, 1, 1, 1 , 1, 2, 1, 1, 1, 3, 
+		AddMonster("Goblin", 3, 1, 5, 1, 3, 2, 3, 1, 1, 1 , 1, 2, 1, 1, 1, 3, 
 		returnStrList(new string[]{"Wide Blade", "Sword Strike"}),
 		returnIntList(new int[]{3, 1}));
 	}

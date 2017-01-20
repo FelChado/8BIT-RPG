@@ -17,4 +17,9 @@ public class DungeonSys_TurnActions : MonoBehaviour
  	{
  		return Random.Range(1, 6);
  	}
+
+ 	public void EndTurn()
+ 	{
+ 		this.sys_objectReference.Sys_interface.CanAct = true;
+ 	}
 }
