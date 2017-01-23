@@ -5,9 +5,9 @@ using UnityEngine;
 public class Camera_Dungeon : MonoBehaviour 
 {
 	[SerializeField]
-	Rigidbody2D rigidbody;
+	new Rigidbody2D rigidbody;
 	[SerializeField]
-	private float speed, constraint;
+	private float speed, constraint = 0;
 
 	void Update()
 	{

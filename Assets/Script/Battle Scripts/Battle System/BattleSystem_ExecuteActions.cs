@@ -5,17 +5,29 @@ using System.Collections.Generic;
 
 public class BattleSystem_ExecuteActions : MonoBehaviour 
 {
-	[SerializeField]
-	GameObject damagePrefab, healPrefab, weaknessPrefab, canvasObject;
-	GameObject damageCounterSpawn;
-	GameObject weaknessSpawn;
+	#region Variables
+
+	// Battle Reference
 	[SerializeField]
 	BattleSystem_References battleRef;
+	// Objects
+	[SerializeField]
+	GameObject damagePrefab = null, healPrefab = null, weaknessPrefab = null, canvasObject = null;
+	GameObject damageCounterSpawn, weaknessSpawn;
+
+	// Complete skill database
 	Dictionary<string, Dictionary<string, float>> skillList = new Dictionary<string, Dictionary<string, float>>();
+
+	// Currently used skill
 	Dictionary<string, float> currSkill = new Dictionary<string, float>();
+
+	// Current action actors
 	Characters_Global currActor, currReceiver;
 
+	// If current skill will stagger
 	bool willStagger;
+
+	#endregion
 
 	void Awake()
 	{
@@ -58,6 +70,8 @@ public class BattleSystem_ExecuteActions : MonoBehaviour
 		
 	}
 
+	#region Skill Processing
+
 	void TargetNumFilter(string usedAction)
 	{
 		this.currSkill = this.skillList [currActor.UsedAction];
@@ -99,6 +113,10 @@ public class BattleSystem_ExecuteActions : MonoBehaviour
 			break;
 		}
 	}
+
+	#endregion
+
+	#region Battle Action Call
 
 	void Guard()
 	{
@@ -159,6 +177,10 @@ public class BattleSystem_ExecuteActions : MonoBehaviour
 		this.currReceiver.GetHealed ((int)heal);
 	}
 
+	#endregion
+
+	#region Utilities
+
 	float ReturnTypeEffectiveness(int element)
 	{
 		float effectiveness = this.currReceiver.weaknessList [element];
@@ -197,4 +219,6 @@ public class BattleSystem_ExecuteActions : MonoBehaviour
 		if(!SavedData.current.weaknessScan[name].ContainsKey(element))
 			SavedData.current.weaknessScan[name].Add(element, effectivName);
 	}
+
+	#endregion
 }

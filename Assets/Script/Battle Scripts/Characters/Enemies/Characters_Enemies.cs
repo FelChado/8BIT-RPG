@@ -59,7 +59,7 @@ public class Characters_Enemies : Characters_Global
 		UpdateStaggerMarkers ();
 	}
 
-	protected virtual void StaggerAction()
+	protected override void StaggerAction()
 	{
 		base.StaggerAction ();
 		StartCoroutine(this.sys_references.Sys_TurnActions.BattleRoutine(this.GetComponent<Characters_Enemies>(), this.TargetCharacter));

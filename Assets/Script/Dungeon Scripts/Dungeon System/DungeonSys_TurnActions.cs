@@ -10,7 +10,7 @@ public class DungeonSys_TurnActions : MonoBehaviour
 	public void TurnRoutine()
 	{
 		int charSteps = DiceRoll();
-		this.sys_objectReference.MainCharacter.CallAction(2);
+		this.sys_objectReference.MainCharacter.CallAction(charSteps	);
 	}
 
 	int DiceRoll()

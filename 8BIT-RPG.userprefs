@@ -1,13 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Dungeon Scripts\Tile_Global.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Battle Scripts\Battle System\BattleSystem_TurnActions.cs">
     <Files>
-      <File FileName="Assets\Script\Dungeon Scripts\DungeonSys_ObjectReferences.cs" Line="43" Column="84" />
-      <File FileName="Assets\Script\Dungeon Scripts\DungeonSys_Interface.cs" Line="5" Column="1" />
-      <File FileName="Assets\Script\Dungeon Scripts\DungeonSys_TurnActions.cs" Line="23" Column="56" />
-      <File FileName="Assets\Script\Dungeon Scripts\MainChar_Dungeon.cs" Line="57" Column="57" />
-      <File FileName="Assets\Script\Battle Scripts\Managers\Managers_Map.cs" Line="64" Column="45" />
-      <File FileName="Assets\Script\Dungeon Scripts\Tile_Global.cs" Line="53" Column="14" />
+      <File FileName="Assets\Script\Managers\Managers_Map.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Battle Scripts\Battle System\BattleSystem_TurnActions.cs" Line="40" Column="15" />
+      <File FileName="Assets\Script\Battle Scripts\Battle System\BattleSystem_Master.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Battle Scripts\Battle System\BattleSystem_TempData.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Managers\Managers_Monsters.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Battle Scripts\Characters\Allies\Characters_Allies.cs" Line="111" Column="43" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -10,7 +10,7 @@ public class Characters_Allies : Characters_Global
 	[SerializeField]
 	Image gauge_stam;
 	[SerializeField]
-	Text text_name, text_hp, text_stam;
+	Text text_name = null, text_hp = null, text_stam = null;
 
 	int temp_currStam;
 	string switchedCharacter;
@@ -90,7 +90,7 @@ public class Characters_Allies : Characters_Global
 		UpdateStaggerMarkers ();
 	}
 
-	protected virtual void StaggerAction()
+	protected override void StaggerAction()
 	{
 		base.StaggerAction ();
 		this.sys_references.Sys_Interface.CallBattleRoutine ();
@@ -101,12 +101,15 @@ public class Characters_Allies : Characters_Global
 		if (this.sys_references.Sys_TempData.currCharHp.ContainsKey (this.prop_name))
 		{
 			this.temp_currHp = this.sys_references.Sys_TempData.currCharHp [this.prop_name];
-			this.staggerReceived = this.sys_references.Sys_TempData.currCharStagger [this.prop_name];
+			if(this.sys_references.Sys_TempData.currCharStagger.ContainsKey(this.prop_name))
+				this.staggerReceived = this.sys_references.Sys_TempData.currCharStagger [this.prop_name];
 		}
 		else
 		{
 			this.temp_currHp = this.stat_hp;
+			WriteTempData();
 			this.staggerReceived = new List<int>();
+			print(this.sys_references.Sys_TempData.currCharHp[this.Prop_Name]);
 		}
 	}
 

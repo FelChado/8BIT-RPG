@@ -5,7 +5,7 @@ using UnityEngine;
 public class DungeonSys_ObjectReferences : MonoBehaviour 
 {
 	[SerializeField]
-	GameObject encounterManagerPrefab, mapManagerPrefab;
+	GameObject encounterManagerPrefab, mapManagerPrefab = null;
 	Managers_EncounterManager encounterManager;
 	Managers_Map mapManager;
 

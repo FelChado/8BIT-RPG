@@ -4,12 +4,13 @@ using System.Collections;
 
 public class BattleSystem_Interface : MonoBehaviour 
 {
-	[SerializeField]
-	Animator anim_battleMenu;
-	[SerializeField]
-	Image cursorImage;
+
+	#region Variables
+
+	// Battle reference
 	[SerializeField]
 	BattleSystem_References battleRef;
+	// Menus reference
 	[SerializeField]
 	BattleInterface_SkillMenu skillMenu;
 	[SerializeField]
@@ -17,11 +18,21 @@ public class BattleSystem_Interface : MonoBehaviour
 	[SerializeField]
 	HUD_WeaknessView hud_weaknessView;
 
+	// Animator and Cursor
+	[SerializeField]
+	Animator anim_battleMenu;
+	[SerializeField]
+	Image cursorImage;
+
+	// Current turn actor
 	Characters_Allies currentActor;
 
+	// Variables
 	private bool active, switchMenuOn;
 	private int menuState = 0, cursor = 0, cursorLimit = 3, cursorMemory;
 	private string cursorDirection = "Vertical", currTargetParty;
+
+	#endregion
 
 	#region GETS & SETS
 

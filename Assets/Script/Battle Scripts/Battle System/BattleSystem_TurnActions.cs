@@ -11,7 +11,9 @@ public class BattleSystem_TurnActions : MonoBehaviour {
 	[SerializeField]
 	BattleSystem_References battleRef;
 	[SerializeField]
-	GameObject allyList, enemyList, allyPrefab, enemyPrefab;
+	GameObject allyList = null, enemyList = null, allyPrefab = null, enemyPrefab = null;
+
+	Managers_Map mapManager;
 
 	private bool sys_battleStop;
 	private int sys_currTurn = 0;
@@ -22,8 +24,20 @@ public class BattleSystem_TurnActions : MonoBehaviour {
 		set{ this.sys_battleStop = value;}
 	}
 
+	void Awake()
+	{
+		this.mapManager = GameObject.FindGameObjectWithTag("MapManager").GetComponent<Managers_Map>();
+	}
+
+	void SetCharHP()
+	{
+		foreach(KeyValuePair<string, int> currChar in this.mapManager.currHPList)
+			this.battleRef.Sys_TempData.currCharHp.Add(currChar.Key, currChar.Value);
+	}
+
 	public void SetBattleOrder()
 	{
+		SetCharHP();
 		for (int i = 0; i < 3; i++)
 		{
 			GameObject allySpawn = (GameObject)GameObject.Instantiate (this.allyPrefab, this.allyList.transform.position, Quaternion.identity);
@@ -83,9 +97,21 @@ public class BattleSystem_TurnActions : MonoBehaviour {
 		}
 	}
 
+	bool CheckIfPartyAlive()
+	{
+		bool allDead = true;
+		for(int i = 0; i < this.battleRef.Sys_Master.battleOrder.Count; i++)
+		{
+			if(this.battleRef.Sys_Master.battleOrder[i].GetComponent<Characters_Allies>() != null && 
+			   !this.battleRef.Sys_Master.battleOrder[i].GetComponent<Characters_Allies>().Fainted)
+				allDead = false;
+		}
+		return allDead;
+	} 
+
 	bool CheckVictory()
 	{
-		if(this.battleRef.Sys_Master.allyList.Count == 0)
+		if(CheckIfPartyAlive())
 		{
 			this.battleRef.SkillNameAnimator.transform.GetChild(0).GetComponent<Text>().text = "The party was defeated.";
 			this.battleRef.SkillNameAnimator.SetTrigger("On");
@@ -95,11 +121,30 @@ public class BattleSystem_TurnActions : MonoBehaviour {
 		{
 			this.battleRef.SkillNameAnimator.transform.GetChild(0).GetComponent<Text>().text = "Victory";
 			this.battleRef.SkillNameAnimator.SetTrigger("On");
+			foreach(Characters_Allies ally in this.battleRef.Sys_Master.battleOrder)
+				ally.WriteTempData();
+			WriteCharHP();
 			SceneManager.LoadScene("Board_01");
 			return true;
 		}
 		else
 			return false;
+	}
+
+	void WriteCharHP()
+	{
+		List<string> allyNames = SavedData.current.currentParty;
+		List<Characters_Allies> allyList = this.battleRef.Sys_Master.allyList; 
+		for(int i = 0; i < allyNames.Count; i++)
+		{
+			if(this.battleRef.Sys_TempData.currCharHp.ContainsKey(allyNames[i]))
+			{
+				if(this.mapManager.currHPList.ContainsKey(allyNames[i]))
+					this.mapManager.currHPList[allyNames[i]] = this.battleRef.Sys_TempData.currCharHp[allyNames[i]];
+				else
+					this.mapManager.currHPList.Add(allyNames[i], this.battleRef.Sys_TempData.currCharHp[allyNames[i]]);
+			}
+		}
 	}
 
 	public IEnumerator BattleRoutine(Characters_Global actor, Characters_Global receiver)
@@ -113,7 +158,6 @@ public class BattleSystem_TurnActions : MonoBehaviour {
 			yield return new WaitForSeconds (0.1f);
 		if(!CheckVictory())
 			NextTurn ();
-
 	}
 
 }

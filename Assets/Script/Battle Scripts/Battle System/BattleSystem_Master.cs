@@ -4,8 +4,11 @@ using System.Collections.Generic;
 
 public class BattleSystem_Master : MonoBehaviour
 {
+	// Battle Reference
 	[SerializeField]
 	BattleSystem_References battleRef;
+
+	// Character Lists
 	public List<Characters_Global> battleOrder = new List<Characters_Global>();
 	public List<Characters_Allies> allyList = new List<Characters_Allies>();
 	public List<Characters_Enemies> enemyList = new List<Characters_Enemies>();

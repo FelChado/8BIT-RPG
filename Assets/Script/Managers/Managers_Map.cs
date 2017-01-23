@@ -7,6 +7,7 @@ public class Managers_Map : MonoBehaviour
 	private DungeonSys_ObjectReferences sys_objectRef;
 	public Dictionary<int, List<string>> encounterLists = new Dictionary<int, List<string>>();
 	public Dictionary<int, int> battlePositions = new Dictionary<int, int>();
+	public Dictionary<string, int> currHPList = new Dictionary<string, int>();
 	private int currPlayerPos = 1;
 
 	#region GETS & SETS
