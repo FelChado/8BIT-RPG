@@ -8,8 +8,13 @@ public class Managers_Characters : MonoBehaviour
 	public Dictionary<string, string> characterBasicAttacks = new Dictionary<string, string>();
 	public Dictionary<string, List<float>> characterWeaknesses = new Dictionary<string, List<float>>();
 
+	void Awake()
+	{
+		CreateCharDatabase();
+	}
+
 	// Use this for initialization
-	public void CreateCharDatabase () 
+	void CreateCharDatabase () 
 	{
 		CreateNewCharacter ("Halstein", "Sword Strike", 100, 60, 30, 15, 60, 35, 25, 15, 6);
 		AddCharacterWeakness ("Halstein", 1, 1, 1, 1, 1, 1, 1);
@@ -19,6 +24,18 @@ public class Managers_Characters : MonoBehaviour
 		AddCharacterWeakness ("Nanna", 1, 1, 1, 1, 1, 1, 1);
 		CreateNewCharacter ("Gustav", "Sword Strike", 50, 40, 10, 50, 20, 40, 35, 15, 3);
 		AddCharacterWeakness ("Gustav", 1, 1, 1, 1, 1, 1, 1);
+	}
+
+	public int GetCharCurrStat(string character, string stat)
+	{
+		print(characterBaseStats[character]);
+		int baseStat = characterBaseStats[character][stat];
+		int level = SavedData.current.partyLevels[character];
+		int result = (int)(((float)baseStat * 2.2f * (float)level) / 100 + 5);
+		if(stat.Equals("Hp"))
+			result += level;
+		return result;
+
 	}
 
 	void CreateNewCharacter(string name, string basicAttack, int hp, int stam, int str, int mag, int def, int mnd, int agi, int luc, int stag)

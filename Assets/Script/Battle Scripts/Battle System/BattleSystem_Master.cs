@@ -15,7 +15,6 @@ public class BattleSystem_Master : MonoBehaviour
 
 	void Start()
 	{
-		this.battleRef.CharManager.CreateCharDatabase ();
 		this.battleRef.MonsterManager.CreateMonsterDatabase();
 		this.battleRef.Sys_TurnActions.SetBattleOrder ();
 		this.battleRef.Sys_Master.battleOrder [0].Act ();

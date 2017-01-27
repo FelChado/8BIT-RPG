@@ -23,7 +23,6 @@ public class BattleInterface_SwitchMenu : MonoBehaviour
 		{
 			this.transform.GetChild(2 + i).GetChild(0).gameObject.SetActive(false);
 			this.transform.GetChild(2 + i).GetChild(1).gameObject.SetActive(false);
-
 		}
 	}
 
