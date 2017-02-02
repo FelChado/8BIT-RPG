@@ -19,6 +19,8 @@ public class DungeonSys_ObjectReferences : MonoBehaviour
 	DungeonSys_Interface sys_interface;
 	[SerializeField]
 	MainChar_Dungeon mainCharacter;
+	[SerializeField]
+	DungeonInterface_Menu dungeonMenu;
 
 
 	void Awake()
@@ -84,6 +86,12 @@ public class DungeonSys_ObjectReferences : MonoBehaviour
 	{
 		get{return this.boardDesign;}
 		set{this.boardDesign = value;}
+	}
+
+	public DungeonInterface_Menu DungeonMenu
+	{
+		get{return this.dungeonMenu;}
+		set{this.dungeonMenu = value;}
 	}
 
 	#endregion

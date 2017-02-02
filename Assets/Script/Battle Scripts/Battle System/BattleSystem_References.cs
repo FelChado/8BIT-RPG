@@ -23,6 +23,8 @@ public class BattleSystem_References : MonoBehaviour {
 	[SerializeField]
 	private Animator skillNameAnimator;
 	[SerializeField]
+	private HUD_PopUps hud_popUps;
+	[SerializeField]
 	private Text skillName;
 
 	Managers_EncounterManager encounterManager;
@@ -92,6 +94,12 @@ public class BattleSystem_References : MonoBehaviour {
 	{
 		get{return this.skillNameAnimator;}
 		set{this.skillNameAnimator = value;}
+	}
+
+	public HUD_PopUps HUD_PopUps
+	{
+		get{return this.hud_popUps;}
+		set{this.hud_popUps = value;}
 	}
 
 	public Text SkillName

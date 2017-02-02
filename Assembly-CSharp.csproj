@@ -56,6 +56,7 @@
      <Compile Include="Assets\Script\Battle Scripts\Characters\Characters_Global.cs" />
      <Compile Include="Assets\Script\Battle Scripts\Characters\Enemies\Characters_Enemies.cs" />
      <Compile Include="Assets\Script\Battle Scripts\Characters\Enemies\Enemies_BasicEnemy.cs" />
+     <Compile Include="Assets\Script\Battle Scripts\HUD\HUD_PopUps.cs" />
      <Compile Include="Assets\Script\Battle Scripts\HUD\HUD_SkillNamePopUp.cs" />
      <Compile Include="Assets\Script\Battle Scripts\HUD\HUD_WeaknessView.cs" />
      <Compile Include="Assets\Script\Battle Scripts\Interface\BattleInterface_SkillMenu.cs" />
@@ -67,6 +68,7 @@
      <Compile Include="Assets\Script\Dungeon Scripts\Dungeon System\DungeonSys_ObjectReferences.cs" />
      <Compile Include="Assets\Script\Dungeon Scripts\Dungeon System\DungeonSys_TurnActions.cs" />
      <Compile Include="Assets\Script\Dungeon Scripts\HUD\DungeonHUD_HPDisplay.cs" />
+     <Compile Include="Assets\Script\Dungeon Scripts\Interface\DungeonInterface_Menu.cs" />
      <Compile Include="Assets\Script\Dungeon Scripts\Tile\Tile_Global.cs" />
      <Compile Include="Assets\Script\Managers\Managers_BoardDesign.cs" />
      <Compile Include="Assets\Script\Managers\Managers_Characters.cs" />

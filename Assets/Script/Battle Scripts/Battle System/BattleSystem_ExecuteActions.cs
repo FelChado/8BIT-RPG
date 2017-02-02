@@ -10,10 +10,6 @@ public class BattleSystem_ExecuteActions : MonoBehaviour
 	// Battle Reference
 	[SerializeField]
 	BattleSystem_References battleRef;
-	// Objects
-	[SerializeField]
-	GameObject damagePrefab = null, healPrefab = null, weaknessPrefab = null, canvasObject = null;
-	GameObject damageCounterSpawn, weaknessSpawn;
 
 	// Complete skill database
 	Dictionary<string, Dictionary<string, float>> skillList = new Dictionary<string, Dictionary<string, float>>();
@@ -108,6 +104,9 @@ public class BattleSystem_ExecuteActions : MonoBehaviour
 			case 1:
 				Damage ();
 			break;
+			case 3:
+				Buff();
+			break;
 			case 4:
 				Heal ();
 			break;
@@ -131,11 +130,10 @@ public class BattleSystem_ExecuteActions : MonoBehaviour
 
 	void Damage()
 	{
-		this.damageCounterSpawn = (GameObject)GameObject.Instantiate(this.damagePrefab, this.currReceiver.transform.position, Quaternion.identity);
-		this.damageCounterSpawn.transform.SetParent(this.canvasObject.transform);
-		this.damageCounterSpawn.transform.localScale = new Vector3 (0.32f, 0.32f, 1);
 		// Hit or Miss
-		if (Random.Range (0, 100) < this.currSkill ["Acc"]) {
+		if (Random.Range (0, 100) < this.currSkill ["Acc"] * ((this.currActor.Stat_Agi + (0.3f * this.currActor.Buff_Agi) * 0.8f) / 
+			(this.currReceiver.Stat_Agi * (0.3f * this.currReceiver.Buff_Agi) * 0.8f))) 
+			{
 			float offensiveStat, defensiveStat;
 			// Define Type
 			if (this.currSkill ["Type"] == 1) 
@@ -150,31 +148,46 @@ public class BattleSystem_ExecuteActions : MonoBehaviour
 			}
 			// Damage Formula
 			float damage = (((float)this.currActor.Stat_Level * 2 / 250) * (offensiveStat / defensiveStat) 
-				* this.currSkill ["Power"]) * Random.Range (0.8f, 1.1f);
+			* this.currSkill ["Power"]) * (1 + 0.2f * this.currActor.Buff_Atk) * (1 + 0.2f * -this.currActor.Buff_Def) *
+			Random.Range (0.8f, 1.1f);
 			if (damage < 0)
 				damage = 0;
 			else if (Random.Range (0, 100) < this.currSkill ["Crit"])
 				damage *= 1.5f;
 			damage *= ReturnTypeEffectiveness ((int)this.currSkill ["Element"]);
-			this.damageCounterSpawn.transform.GetChild(0).GetComponent<Text>().text = ((int)damage).ToString();
+			this.battleRef.HUD_PopUps.SpawnDamageCounter(damage, this.currReceiver.transform, "Damage");
 			this.currReceiver.GetDamaged ((int)damage, (int)this.currSkill ["Type"], willStagger);
 		} 
 		else 
-		{
-			this.damageCounterSpawn.transform.GetChild(0).GetComponent<Text>().text = "Miss";
-		}
+			this.battleRef.HUD_PopUps.SpawnWord("Miss", this.currReceiver.transform);
+
 	}
 
 	void Heal()
 	{
-		this.damageCounterSpawn = (GameObject)GameObject.Instantiate(this.healPrefab, this.currReceiver.transform.position, Quaternion.identity);
-		this.damageCounterSpawn.transform.SetParent(this.canvasObject.transform);
-		this.damageCounterSpawn.transform.localScale = new Vector3 (0.32f, 0.32f, 1);
-
 		float heal = (((float)this.currActor.Stat_Level * 2 / 250) * (this.currActor.Stat_Min) 
-			* this.currSkill ["Power"]) * Random.Range (0.8f, 1.1f);
-		this.damageCounterSpawn.transform.GetChild(0).GetComponent<Text>().text = ((int)heal).ToString();
+					 * this.currSkill ["Power"]) * Random.Range (0.8f, 1.1f);
+		this.battleRef.HUD_PopUps.SpawnDamageCounter(heal, this.currReceiver.transform, "Heal");
 		this.currReceiver.GetHealed ((int)heal);
+	}
+
+	void Buff()
+	{
+		string buffText = "";
+		switch((int)this.currSkill["Attribute"])
+		{
+			case 1:
+				buffText = "Attack Up";
+			break;
+			case 2:
+				buffText = "Defense Up";
+			break;
+			case 3:
+				buffText = "Agility Up";
+			break;
+		}
+		this.battleRef.HUD_PopUps.SpawnWord(buffText, this.currReceiver.transform);
+		this.currReceiver.GetBuffed((int)this.currSkill["Attribute"], 1);
 	}
 
 	#endregion
@@ -186,19 +199,17 @@ public class BattleSystem_ExecuteActions : MonoBehaviour
 		float effectiveness = this.currReceiver.weaknessList [element];
 		if (effectiveness != 1) 
 		{
-			this.weaknessSpawn = (GameObject)GameObject.Instantiate (this.weaknessPrefab, this.currReceiver.transform.position, Quaternion.identity);
-			this.weaknessSpawn.transform.SetParent (this.canvasObject.transform);
-			this.weaknessSpawn.transform.localScale = new Vector3 (0.32f, 0.32f, 1);
+			string effectName = null;
 			if (effectiveness > 1)
 			{
-				this.weaknessSpawn.transform.GetChild (0).GetComponent<Text> ().text = "WEAK";
+				effectName = "WEAK";
 				this.willStagger = true;
 			}
 			if(effectiveness == 0.5f)
-				this.weaknessSpawn.transform.GetChild(0).GetComponent<Text>().text = "RESIST";
+				effectName = "RESIST";
 			if(effectiveness == 0)
-				this.weaknessSpawn.transform.GetChild(0).GetComponent<Text>().text = "IMMUNE";
-				
+				effectName = "IMMUNE";
+			this.battleRef.HUD_PopUps.SpawnWord(effectName, this.currReceiver.transform);
 		}
 		if(currReceiver.CompareTag("Enemy"))
 			AddToWeaknessDictionary(currReceiver.Prop_Name, (int)element, effectiveness);
@@ -218,6 +229,7 @@ public class BattleSystem_ExecuteActions : MonoBehaviour
 			SavedData.current.weaknessScan.Add(name, new Dictionary<int, string>());
 		if(!SavedData.current.weaknessScan[name].ContainsKey(element))
 			SavedData.current.weaknessScan[name].Add(element, effectivName);
+			print(effectivName);
 	}
 
 	#endregion

@@ -8,10 +8,16 @@ public class Camera_Dungeon : MonoBehaviour
 	new Rigidbody2D rigidbody;
 	[SerializeField]
 	private float speed, constraint = 0;
+	[SerializeField]
+	DungeonSys_ObjectReferences sys_objectReference;
 
 	void Update()
 	{
-		MoveCamera();
+		if(!this.sys_objectReference.DungeonMenu.State_MenuOpen)
+			MoveCamera();
+		else if(this.rigidbody.velocity != new Vector2(0,0))
+			this.rigidbody.velocity = new Vector2(0,0);
+
 		Constraint();
 	}
 

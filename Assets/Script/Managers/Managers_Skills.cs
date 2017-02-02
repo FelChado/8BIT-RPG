@@ -13,8 +13,8 @@ public class Managers_Skills : MonoBehaviour
 		SkillMaker ("Heal", "Heals an Ally.", 4, 0, 1, 100, 100, 5, 0, 1, 4, 0, 0, 0, 1);
 		SkillMaker ("Wide Blade", "Deals light Slash damage to 1 foe.", 1, 0, 1, 140, 100, 5, 1, 0, 0, 0, 0, 0, 1);
 		SkillMaker ("Shoot", "Deals light Slash damage to 1 foe.", 1, 2, 1, 140, 85, 5, 1, 1, 0, 0, 0, 0, 1);
-		SkillMaker ("Skewer", "Deals light Slash damage to 1 foe.", 1, 2, 1, 140, 85, 5, 1, 1, 0, 0, 0, 0, 1);
-		SkillMaker ("Fire", "Deals fire damage.", 1, 3, 2, 140, 95, 5, 1, 1, 0, 0, 0, 0, 1);
+		SkillMaker ("AttackUp", "Buffs damage.", 3, 0, 1, 0, 100, 0, 0, 1, 5, 0, 1, 0, 1);
+		SkillMaker ("Sol", "Deals fire damage.", 1, 3, 2, 140, 95, 5, 1, 1, 0, 0, 0, 0, 1);
 	}
 
 	void SkillMaker(string name, string description, float category, float element, float type, float power, float acc, float crit, 
@@ -72,6 +72,9 @@ public class Managers_Skills : MonoBehaviour
 		Cost: MP cost of skill
 		Ailment: Placed status Ailment
 		Attribute: Raised/Lowered Attribute
+		1 - Strenght
+		2 - Defense
+		3 - Agility
 		Ailment Chance: Chance of having the target sustain the ailment
 		No. of hits: Number of times skill will be executed per use.
 	*/

@@ -26,9 +26,12 @@ public abstract class Characters_Global : MonoBehaviour
 	protected int stat_hp, stat_level, stat_stagger, stat_stamina;
 	[SerializeField]
 	protected float stat_str, stat_def, stat_mag, stat_min, stat_agi, stat_lu;
+	protected int buff_atk, buff_def, buff_agi;
 
 	// Temporary Values
 	public List<int> staggerReceived = new List<int>();
+	[SerializeField]
+	List<string> statPenalties = new List<string>();
 	protected bool temp_staggering;
 	protected int temp_currHp;	
 
@@ -118,11 +121,30 @@ public abstract class Characters_Global : MonoBehaviour
 		set{ this.prop_name = value;}
 	}
 
+	public int Buff_Atk
+	{
+		get{ return this.buff_atk; }
+		set{ this.buff_atk = value;}
+	}
+
+	public int Buff_Def
+	{
+		get{ return this.buff_def; }
+		set{ this.buff_def = value;}
+	}
+
+	public int Buff_Agi
+	{
+		get{ return this.buff_agi; }
+		set{ this.buff_agi = value;}
+	}
+
 	#endregion
 
 	public virtual void Act()
 	{
 		RecoverStagger ();
+		StatusPenaltiesEffects();
 	}
 
 	protected void Start()
@@ -174,7 +196,49 @@ public abstract class Characters_Global : MonoBehaviour
 			this.temp_currHp = this.stat_hp;
 		UpdateUI ();
 	}
-		
+
+	public void GetBuffed(int attrib, int side)
+	{
+		switch(attrib)
+		{
+			case 1:
+				this.buff_atk += side;
+			break;
+			case 2:
+				this.buff_def += side;
+			break;
+			case 3:
+				this.buff_agi += side;
+			break;
+		}
+		this.buff_atk = Mathf.Clamp(this.buff_atk, -1, 1);
+		this.buff_def = Mathf.Clamp(this.buff_def, -1, 1);
+		this.buff_agi = Mathf.Clamp(this.buff_agi, -1, 1);
+	}
+
+	public IEnumerator StatusPenaltiesEffects()
+	{
+		for(int i = 0; i < this.statPenalties.Count; i++)
+		{
+			switch(statPenalties[i])
+			{
+				case "Poison":
+					yield return new WaitForSeconds(0.1f);
+					this.sys_references.HUD_PopUps.SpawnDamageCounter(this.stat_hp/10, this.transform, "Damage");
+					this.sys_references.HUD_PopUps.SpawnWord("Poison", this.transform);
+					this.temp_currHp -= this.stat_hp/10;
+				break;
+				case "Strain":
+
+				break;
+				case "Bleed":
+
+				break;
+
+			}
+		}
+	}
+
 	public virtual void UpdateUI()
 	{
 		this.gauge_hp.fillAmount = (float)this.temp_currHp / (float)this.stat_hp;

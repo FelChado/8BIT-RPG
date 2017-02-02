@@ -6,7 +6,8 @@ public class NewGame : MonoBehaviour
 
 	void Awake()
 	{
-		CreateNewGame ();
+		if(SavedData.current == null)
+			CreateNewGame ();
 	}
 
 	public void CreateNewGame()
@@ -16,7 +17,7 @@ public class NewGame : MonoBehaviour
 		AddToSave.AddCharacter ("Halstein", 1);
 		AddToSave.AddToParty ("Halstein");
 		AddToSave.AddSkillToCharacter ("Halstein", "Heal");
-		AddToSave.AddSkillToCharacter ("Halstein", "Fire");
+		AddToSave.AddSkillToCharacter ("Halstein", "AttackUp");
 
 		AddToSave.AddCharacter ("Asmund", 1);
 		AddToSave.AddToParty ("Asmund");
