@@ -144,7 +144,7 @@ public abstract class Characters_Global : MonoBehaviour
 	public virtual void Act()
 	{
 		RecoverStagger ();
-		StatusPenaltiesEffects();
+		StartCoroutine(StatusPenaltiesEffects());
 	}
 
 	protected void Start()
@@ -224,9 +224,12 @@ public abstract class Characters_Global : MonoBehaviour
 			{
 				case "Poison":
 					yield return new WaitForSeconds(0.1f);
-					this.sys_references.HUD_PopUps.SpawnDamageCounter(this.stat_hp/10, this.transform, "Damage");
+					int damageReceived = this.stat_hp/10;
+					if(damageReceived < 1)
+						damageReceived = 1;
+					this.sys_references.HUD_PopUps.SpawnDamageCounter(damageReceived, this.transform, "Damage");
 					this.sys_references.HUD_PopUps.SpawnWord("Poison", this.transform);
-					this.temp_currHp -= this.stat_hp/10;
+					this.temp_currHp -= damageReceived;
 				break;
 				case "Strain":
 

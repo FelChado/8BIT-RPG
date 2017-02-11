@@ -70,6 +70,7 @@
      <Compile Include="Assets\Script\Dungeon Scripts\HUD\DungeonHUD_HPDisplay.cs" />
      <Compile Include="Assets\Script\Dungeon Scripts\Interface\DungeonInterface_Menu.cs" />
      <Compile Include="Assets\Script\Dungeon Scripts\Tile\Tile_Global.cs" />
+     <Compile Include="Assets\Script\Dungeon Scripts\Tile\Tile_Objective.cs" />
      <Compile Include="Assets\Script\Managers\Managers_BoardDesign.cs" />
      <Compile Include="Assets\Script\Managers\Managers_Characters.cs" />
      <Compile Include="Assets\Script\Managers\Managers_EncounterManager.cs" />
